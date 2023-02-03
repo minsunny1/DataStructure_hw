@@ -2,22 +2,20 @@
 # 체력순으로 배열하고, 새로운 몬스터 넣어서 정렬
 # 딕셔너리는 정렬이 안돼...2차원 리스트로!
 
-def find_insert(monster, health):
-    find_pos = -1
+def insert_and_arrange(monster, health): # 비교, 정렬
+    find_pos = -1  # 맨 뒤
     for i in range(len(pokemons)):
-        for j in range(len(pokemons[i])):
-            comparison = pokemons[i][j]
-            test = pokemons[j]
-            if health >= test[1]:
+            comparison = pokemons[i][1]
+            if health >= comparison:
                 find_pos = i
                 break
     if find_pos == -1:
         find_pos = len(pokemons)
 
-    insert_data(find_pos, [monster, health])
+    insert_data(find_pos, [monster, health])  # 함수 호출
 
 
-def insert_data(pos, monster):
+def insert_data(pos, monster): # 몬스터 삽입
     if pos < 0 or pos > len(pokemons):
         print("out of range!")
         return
@@ -35,9 +33,16 @@ pokemons = [['피카츄', 300], ['꼬부기', 500], ['이상해', 100], ['꼬북
 
 if __name__ == "__main__":
     while True:
+        print('입력하기 전 pokemons 리스트 내림차순 배열')
+        pokemons.sort(key=lambda x: -x[1])
+        print(pokemons)
+        # print(sorted(pokemons, key=lambda monster: -monster[1]))
+
         monster = input("추가할 몬스터--> ")
         health = int(input("체력--> "))
-        find_insert(monster, health)
+        insert_and_arrange(monster, health)
+        print('삽입 후 pokemons 리스트 내림차순 배열')
         print(pokemons)
-        print(len(pokemons))
+        print('\n')
+
 
